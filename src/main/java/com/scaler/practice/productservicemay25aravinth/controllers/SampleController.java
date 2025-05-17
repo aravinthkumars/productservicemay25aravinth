@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sample")
 public class SampleController {
 
-    //@DeleteMapping("/sayHello")
     @GetMapping("/sayHello/{name}")
     public String sayHello(@PathVariable("name") String strName){
         return "Hello "+strName;
