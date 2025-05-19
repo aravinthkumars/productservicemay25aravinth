@@ -1,6 +1,7 @@
 package com.scaler.practice.productservicemay25aravinth.services;
 
 import com.scaler.practice.productservicemay25aravinth.exceptions.CatgeoryNotFoundException;
+import com.scaler.practice.productservicemay25aravinth.exceptions.ProductNotFoundException;
 import com.scaler.practice.productservicemay25aravinth.models.Category;
 import com.scaler.practice.productservicemay25aravinth.models.Product;
 import com.scaler.practice.productservicemay25aravinth.repositories.CategoryRepository;
@@ -23,13 +24,13 @@ public class SelfProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getSingleProduct(Long productId) {
-        return null;
+    public Product getSingleProduct(Long productId) throws ProductNotFoundException {
+        return this.productRepository.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product Not Found"));
     }
 
     @Override
     public List<Product> getAllProducts() {
-        return List.of();
+        return this.productRepository.findAll();
     }
 
     @Override
@@ -46,13 +47,17 @@ public class SelfProductServiceImpl implements ProductService {
         if(optionalCategory.isEmpty()){
             category =  categoryRepository.save(category);
         }
+        else{
+            category = optionalCategory.get();
+        }
+        product.setCategory(category);
 
         return this.productRepository.save(product);
     }
 
     @Override
-    public boolean deleteProduct(Long productId) {
-        return false;
+    public void deleteProduct(Long productId) {
+        this.productRepository.deleteById(productId);
     }
 
     /*
