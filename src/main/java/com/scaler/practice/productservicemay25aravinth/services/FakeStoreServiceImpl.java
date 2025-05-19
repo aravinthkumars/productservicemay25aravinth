@@ -56,7 +56,7 @@ public class FakeStoreServiceImpl implements ProductService{
         product.setImage(fakeStoreProductDTO.getImage());
 
         Category category = new Category();
-        category.setName(fakeStoreProductDTO.getCategory());
+        category.setCategoryName(fakeStoreProductDTO.getCategory());
         product.setCategory(category);
 
         return product;

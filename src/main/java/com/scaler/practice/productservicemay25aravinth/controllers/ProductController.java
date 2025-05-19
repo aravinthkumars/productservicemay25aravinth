@@ -3,6 +3,7 @@ package com.scaler.practice.productservicemay25aravinth.controllers;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.scaler.practice.productservicemay25aravinth.exceptions.CatgeoryNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,15 @@ public class ProductController {
     //localhost:8080/products/
     @PostMapping("/")
     public Product createProduct(@RequestBody Product product){
-        return new Product();
+        Product response = null;
+
+        try {
+            response = this.productService.createProduct(product);
+        } catch (CatgeoryNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return response;
     }
 
     /*
